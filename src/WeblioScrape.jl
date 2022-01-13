@@ -1,12 +1,10 @@
 module WeblioScrape
 
-export TEST_URL, getexamples, searchexamples, testpage, testall
+export getexamples, searchexamples
 
 using Gumbo, Cascadia, HTTP
 
 using URIs: escapeuri
-
-TEST_URL = "https://ejje.weblio.jp/sentence/content/%E3%81%8A%E9%A1%98%E3%81%84/"
 
 makewebliourl(q) = "https://ejje.weblio.jp/sentence/content/" * escapeuri(q) * "/"
 
@@ -79,6 +77,9 @@ deletespaces(x) =  replace(x, r"\s"=>"")
 
 
 #TEMP
+export TEST_URL, testpage, testall
+TEST_URL = "https://ejje.weblio.jp/sentence/content/%E3%81%8A%E9%A1%98%E3%81%84/"
+
 testpage() = getexamples(TEST_URL)
 testall() = getallpages(TEST_URL)
 #TEMP

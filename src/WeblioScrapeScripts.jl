@@ -1,4 +1,4 @@
-module WeblioScrapeScripts
+module WeblioScrape
 
 export TEST_URL, getexamples, searchexamples, testpage, testall
 

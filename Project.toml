@@ -1,4 +1,4 @@
-name = "WeblioScrapeScripts"
+name = "WeblioScrape"
 uuid = "4bc14e10-218f-4d94-aa2c-343c72ec7fd8"
 authors = ["Markus-Amano <markus.a.amano@gmail.com>"]
 version = "0.1.0"

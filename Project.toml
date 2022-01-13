@@ -1,0 +1,12 @@
+name = "WeblioScrapeScripts"
+uuid = "4bc14e10-218f-4d94-aa2c-343c72ec7fd8"
+authors = ["Markus-Amano <markus.a.amano@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
+Cascadia = "54eefc05-d75b-58de-a785-1a3403f0919f"
+Gumbo = "708ec375-b3d6-5a57-a7ce-8257bf98657a"
+HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
+Tables = "bd369af6-aec1-5ad0-b16a-f7cc5008161c"
+URIs = "5c2747f8-b7ea-4ff2-ba2e-563bfd36b1d4"

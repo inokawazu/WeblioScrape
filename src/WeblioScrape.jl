@@ -6,8 +6,11 @@ using Gumbo, Cascadia, HTTP
 
 using URIs: escapeuri
 
+"`makewebliourl(q)` constructs the weblio url to search at."
 makewebliourl(q) = "https://ejje.weblio.jp/sentence/content/" * escapeuri(q) * "/"
 
+"`getexamples(url::String, pg=1)` goes out to Weblio to get the examples from the url \
+at a give page."
 function getexamples(url::String, pg=1)
     html = HTTP.get(url*string(pg))
 
@@ -24,6 +27,7 @@ function getexamples(url::String, pg=1)
     return hcat(jpexs, enexs)
 end
 
+"`getmaxpages(url)` gets the max page of search results."
 function getmaxpages(url)
     html = HTTP.get(url)
     parsed = parsehtml(String(html))
@@ -36,6 +40,8 @@ function getmaxpages(url)
     parse(Int, string(pagenumbers[end-1][1]))
 end
 
+"`getallpages(url, pglimit::Integer = typemax(Int))` gets all the examples from several \
+up to an the pglimit or the max pages given."
 function getallpages(url, pglimit::Integer = typemax(Int))
 
     maxpgs = min(getmaxpages(url), pglimit)
@@ -51,6 +57,9 @@ function getallpages(url, pglimit::Integer = typemax(Int))
 
 end
 
+"`searchexamples(q::String, pglimit::Integer = typemax(Int))` returns the Japnese-English \
+examples for search q (which must be in Japanese) up to the pglimit or the max search pages \
+returned."
 function searchexamples(q::String, pglimit::Integer = typemax(Int))
     @show url = makewebliourl(q)
     getallpages(url, pglimit)
@@ -59,6 +68,7 @@ end
 getcjj(q) = eachmatch(sel".qotCJJ",q)[1]
 getcje(q) = eachmatch(sel".qotCJE",q)[1]
 
+"`extractex(q)` removes html fluff around example text."
 function extractex(q)
     try 
         return join(map(extractex, q.children), " ")
@@ -69,10 +79,16 @@ function extractex(q)
     end
 end
 
+"`extractex(t::Gumbo.HTMLText)` converts HTMLText to text."
 extractex(t::Gumbo.HTMLText) =  string(t)
+
+"`extractex(_::Gumbo.HTMLElement{:span})` returns an emtpy result because spans contain \
+extraneous information."
 extractex(_::Gumbo.HTMLElement{:span}) = "" 
 
+"`cleanspaces(x)` cleans up excess spaces in `x`"
 cleanspaces(x) =  replace(x, r"\s{2,}"=>" ") |> strip
+"`deletespaces(x)` deletes all space characters in `x`"
 deletespaces(x) =  replace(x, r"\s"=>"")
 
 
